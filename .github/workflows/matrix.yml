@@ -2,22 +2,21 @@ name: Matrix Demo
 on: push
 jobs:
     build:
-        # you can add to prevent other jobs from stopping -> continue-on-error: true 
         strategy:
             matrix:
-                node-version: [16 ,18, 20]
+                node-version: [16, 18, 20]
                 operating-system: [ubuntu-latest, windows-latest]
                 include: 
                     - node-version: 22
-                    - operating-system: ubuntu-latest
-                exclue:
+                      operating-system: ubuntu-latest
+                exclude:
                     - node-version: 16
-                    - operating-system: windows-latest
+                      operating-system: windows-latest
         runs-on: ${{ matrix.operating-system }}
         steps: 
             - name: Get code
               uses: actions/checkout@v4
-            - name: install NodeJS
+            - name: Install NodeJS
               uses: actions/setup-node@v4
               with:
                 node-version: ${{ matrix.node-version }}
